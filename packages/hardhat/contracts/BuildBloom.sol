@@ -1,7 +1,11 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
+import "./BuildPoint.sol";
+
 contract BuildBloom {
+  BuildPoint public buildPoint;
+
   address public immutable owner;
 
   Building[] public buildings;
@@ -11,8 +15,9 @@ contract BuildBloom {
     string lng;
   }
 
-  constructor(address _owner) {
+  constructor(address _owner, address _tokenAddress) {
     owner = _owner;
+    buildPoint = BuildPoint(_tokenAddress);
   }
 
   function getBuildings() public view returns (Building[] memory){
