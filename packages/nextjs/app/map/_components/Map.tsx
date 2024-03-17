@@ -1,7 +1,7 @@
 import { useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { Circle, MapContainer, Marker, TileLayer } from "react-leaflet";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 const userIcon = new L.Icon({
@@ -40,7 +40,9 @@ const Map = () => {
             attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[position.lat, position.lng]} icon={userIcon} />
+          <Marker position={[position.lat, position.lng]} icon={userIcon}>
+            <Circle center={position} radius={160} color="blue" fillColor="blue" fillOpacity={0.1} />
+          </Marker>
           {buildings?.map((b, index) => (
             <Marker key={index} position={[Number(b.lat), Number(b.lng)]} icon={houseIcon} />
           ))}
