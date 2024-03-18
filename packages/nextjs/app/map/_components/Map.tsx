@@ -1,4 +1,5 @@
 import { useState } from "react";
+import NFTMarker from "./NFTMarker";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { Circle, MapContainer, Marker, TileLayer } from "react-leaflet";
@@ -6,13 +7,6 @@ import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 const userIcon = new L.Icon({
   iconUrl: "/user.png",
-  iconSize: [30, 40],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-});
-
-const houseIcon = new L.Icon({
-  iconUrl: "/house.png",
   iconSize: [30, 40],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
@@ -44,7 +38,7 @@ const Map = () => {
             <Circle center={position} radius={160} color="blue" fillColor="blue" fillOpacity={0.1} />
           </Marker>
           {buildings?.map((b, index) => (
-            <Marker key={index} position={[Number(b.lat), Number(b.lng)]} icon={houseIcon} />
+            <NFTMarker key={index} lat={Number(b.lat)} lng={Number(b.lng)} />
           ))}
         </MapContainer>
       </div>
