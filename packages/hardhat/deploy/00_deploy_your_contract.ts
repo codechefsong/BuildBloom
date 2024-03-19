@@ -30,10 +30,18 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   const BuildPoint = await hre.ethers.getContract<Contract>("BuildPoint", deployer);
 
+  await deploy("Materials", {
+    from: deployer,
+    log: true,
+    autoMine: true,
+  });
+
+  const Materials = await hre.ethers.getContract<Contract>("Materials", deployer);
+
   await deploy("BuildBloom", {
     from: deployer,
     // Contract constructor arguments
-    args: [deployer, await BuildPoint.getAddress()],
+    args: [deployer, await BuildPoint.getAddress(), await Materials.getAddress()],
     log: true,
     // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
     // automatically mining the contract deployment transaction. There is no effect on live networks.
@@ -42,7 +50,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   // Get the deployed contract to interact with it after deploying.
   const yourContract = await hre.ethers.getContract<Contract>("BuildBloom", deployer);
-  console.log("First building:", await yourContract.addBuilding("52.505", "-0.13"));
+  console.log("First building:", await yourContract.addBuilding("51.5051", "-0.91"));
 };
 
 export default deployYourContract;
