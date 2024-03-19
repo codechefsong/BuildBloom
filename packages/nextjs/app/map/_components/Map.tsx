@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MaterialMarker from "./MaterialMarker";
 import NFTMarker from "./NFTMarker";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -26,6 +27,11 @@ const Map = () => {
     functionName: "getBuildings",
   });
 
+  const { data: shops } = useScaffoldContractRead({
+    contractName: "BuildBloom",
+    functionName: "getShops",
+  });
+
   return (
     <>
       <div>
@@ -39,6 +45,15 @@ const Map = () => {
           </Marker>
           {buildings?.map((b, index) => (
             <NFTMarker key={index} lat={Number(b.lat)} lng={Number(b.lng)} />
+          ))}
+
+          {shops?.map((s, index) => (
+            <MaterialMarker
+              key={index}
+              lat={Number(s.lat)}
+              lng={Number(s.lng)}
+              materialType={s.materialType.toString()}
+            />
           ))}
         </MapContainer>
       </div>

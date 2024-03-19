@@ -46,6 +46,10 @@ contract BuildBloom {
     shops.push(Shop(_lat, _lng, _materialType));
   }
 
+  function mintMaterial(uint256 _id) public {
+    materials.mintMaterial(msg.sender, _id);
+  }
+
   modifier isOwner() {
     require(msg.sender == owner, "Not the Owner");
     _;
