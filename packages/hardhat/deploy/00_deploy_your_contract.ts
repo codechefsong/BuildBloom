@@ -50,7 +50,10 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
 
   // Get the deployed contract to interact with it after deploying.
   const yourContract = await hre.ethers.getContract<Contract>("BuildBloom", deployer);
-  console.log("First building:", await yourContract.addBuilding("51.5051", "-0.91"));
+  console.log("First Building:", await yourContract.addBuilding("51.51", "-0.095"));
+  console.log("First Wood shop:", await yourContract.addShop("51.50", "-0.089", 0));
+  console.log("First Cement shop:", await yourContract.addShop("51.52", "-0.1", 1));
+  console.log("First Glass shop:", await yourContract.addShop("51.51", "-0.08", 2));
 };
 
 export default deployYourContract;

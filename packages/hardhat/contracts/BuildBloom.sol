@@ -11,10 +11,17 @@ contract BuildBloom {
   address public immutable owner;
 
   Building[] public buildings;
+  Shop[] public shops;
 
   struct Building {
     string lat;
     string lng;
+  }
+
+  struct Shop {
+    string lat;
+    string lng;
+    uint256 materialType;
   }
 
   constructor(address _owner, address _tokenAddress, address _multTokenAddress) {
@@ -27,8 +34,16 @@ contract BuildBloom {
     return buildings;
   }
 
+  function getShops() public view returns (Shop[] memory){
+    return shops;
+  }
+
   function addBuilding(string calldata _lat, string calldata _lng) public {
     buildings.push(Building(_lat, _lng));
+  }
+
+  function addShop(string calldata _lat, string calldata _lng, uint256 _materialType) public {
+    shops.push(Shop(_lat, _lng, _materialType));
   }
 
   modifier isOwner() {
