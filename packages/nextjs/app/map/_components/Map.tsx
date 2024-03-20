@@ -1,17 +1,10 @@
 import { useState } from "react";
 import MaterialMarker from "./MaterialMarker";
 import NFTMarker from "./NFTMarker";
-import L from "leaflet";
+import UserMarker from "./UserMarker";
 import "leaflet/dist/leaflet.css";
-import { Circle, MapContainer, Marker, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
-
-const userIcon = new L.Icon({
-  iconUrl: "/user.png",
-  iconSize: [30, 40],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-});
 
 type Coordinates = {
   lat: number;
@@ -40,9 +33,7 @@ const Map = () => {
             attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[position.lat, position.lng]} icon={userIcon}>
-            <Circle center={position} radius={160} color="blue" fillColor="blue" fillOpacity={0.1} />
-          </Marker>
+          <UserMarker lat={position.lat} lng={position.lng} />
           {buildings?.map((b, index) => (
             <NFTMarker key={index} lat={Number(b.lat)} lng={Number(b.lng)} />
           ))}
