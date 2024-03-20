@@ -38,6 +38,13 @@ contract BuildBloom {
     return shops;
   }
 
+  function getMaterials(address _owner) public view returns (uint256, uint256, uint256){
+    uint256 wood = materials.balanceOf(_owner, 0);
+    uint256 cement = materials.balanceOf(_owner, 1);
+    uint256 glass = materials.balanceOf(_owner, 2);
+    return (wood, cement, glass);
+  }
+
   function addBuilding(string calldata _lat, string calldata _lng) public {
     buildings.push(Building(_lat, _lng));
   }
