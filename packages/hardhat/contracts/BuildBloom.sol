@@ -16,6 +16,8 @@ contract BuildBloom {
   struct Building {
     string lat;
     string lng;
+    bool isBuild;
+    address owner;
   }
 
   struct Shop {
@@ -46,7 +48,7 @@ contract BuildBloom {
   }
 
   function addBuilding(string calldata _lat, string calldata _lng) public {
-    buildings.push(Building(_lat, _lng));
+    buildings.push(Building(_lat, _lng, false, address(0)));
   }
 
   function addShop(string calldata _lat, string calldata _lng, uint256 _materialType) public {
