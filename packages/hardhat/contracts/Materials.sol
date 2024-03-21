@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 
 contract Materials is ERC1155 {
-    uint256 public constant Wood  = 1;
+    uint256 public constant Wood = 1;
     uint256 public constant Cement = 2;
     uint256 public constant Glass = 3;
 
@@ -15,5 +15,11 @@ contract Materials is ERC1155 {
         if (_id == 0) _mint(_account, Wood, 1, "");
         else if (_id == 1) _mint(_account, Cement, 1, "");
         else if (_id == 2) _mint(_account, Glass, 1, "");
+    }
+
+    function burnMaterial(address _account, uint256 _id, uint256 _amount) public {
+        if (_id == 0) _burn(_account, Wood, _amount);
+        else if (_id == 1) _burn(_account, Cement, _amount);
+        else if (_id == 2) _burn(_account, Glass, _amount);
     }
 }

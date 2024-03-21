@@ -41,14 +41,27 @@ contract BuildBloom {
   }
 
   function getMaterials(address _owner) public view returns (uint256, uint256, uint256){
-    uint256 wood = materials.balanceOf(_owner, 0);
-    uint256 cement = materials.balanceOf(_owner, 1);
-    uint256 glass = materials.balanceOf(_owner, 2);
+    uint256 wood = materials.balanceOf(_owner, 1);
+    uint256 cement = materials.balanceOf(_owner,2);
+    uint256 glass = materials.balanceOf(_owner, 3);
     return (wood, cement, glass);
   }
 
   function addBuilding(string calldata _lat, string calldata _lng) public {
     buildings.push(Building(_lat, _lng, false, address(0)));
+  }
+
+  function build(uint256 _id) public {
+    require( materials.balanceOf(msg.sender, 1) > 0, "You need more Wood");
+    require( materials.balanceOf(msg.sender, 2) > 0, "You need more Cement");
+    require( materials.balanceOf(msg.sender, 3) > 0, "You need more Glass");
+
+    materials.burnMaterial(msg.sender, 1, 1);
+    materials.burnMaterial(msg.sender, 2, 1);
+    materials.burnMaterial(msg.sender, 3, 1);
+
+    buildings[_id].isBuild = true;
+    buildings[_id].owner = msg.sender;
   }
 
   function addShop(string calldata _lat, string calldata _lng, uint256 _materialType) public {

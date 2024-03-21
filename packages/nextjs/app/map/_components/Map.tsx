@@ -35,7 +35,7 @@ const Map = () => {
           />
           <UserMarker lat={position.lat} lng={position.lng} />
           {buildings?.map((b, index) => (
-            <NFTMarker key={index} lat={Number(b.lat)} lng={Number(b.lng)} />
+            <NFTMarker key={index} id={index} lat={Number(b.lat)} lng={Number(b.lng)} isBuild={b.isBuild} />
           ))}
 
           {shops?.map((s, index) => (
