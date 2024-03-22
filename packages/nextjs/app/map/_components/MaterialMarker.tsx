@@ -9,14 +9,16 @@ type MarkerComponentProps = {
   materialType: string;
 };
 
-const houseIcon = new L.Icon({
-  iconUrl: "/house.png",
-  iconSize: [30, 40],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-});
+const materialImages = ["/wood.png", "/cement.png", "/glass.png"];
 
 const MaterialMarker: React.FC<MarkerComponentProps> = ({ lat, lng, materialType }) => {
+  const materialIcon = new L.Icon({
+    iconUrl: materialImages[materialType as any],
+    iconSize: [30, 40],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+  });
+
   const { writeAsync: mintMaterial } = useScaffoldContractWrite({
     contractName: "BuildBloom",
     functionName: "mintMaterial",
@@ -26,10 +28,9 @@ const MaterialMarker: React.FC<MarkerComponentProps> = ({ lat, lng, materialType
     },
   });
   return (
-    <Marker position={[lat, lng]} icon={houseIcon}>
+    <Marker position={[lat, lng]} icon={materialIcon}>
       <Popup>
-        <Image src="/house.png" width="50" height="50" alt="House" />
-        <p>{materialType}</p>
+        <Image src={materialImages[materialType as any]} width="50" height="50" alt="Material" />
         <button
           className="py-2 px-4 mb-1 mt-3 mr-3 bg-green-500 rounded baseline hover:bg-green-300 disabled:opacity-50"
           onClick={() => mintMaterial()}
