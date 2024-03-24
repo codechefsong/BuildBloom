@@ -18,6 +18,7 @@ contract BuildBloom {
     string lng;
     bool isBuild;
     address owner;
+    uint256 startdate;
   }
 
   struct Shop {
@@ -48,7 +49,7 @@ contract BuildBloom {
   }
 
   function addBuilding(string calldata _lat, string calldata _lng) public {
-    buildings.push(Building(_lat, _lng, false, address(0)));
+    buildings.push(Building(_lat, _lng, false, address(0), 0));
   }
 
   function build(uint256 _id) public {
@@ -62,6 +63,7 @@ contract BuildBloom {
 
     buildings[_id].isBuild = true;
     buildings[_id].owner = msg.sender;
+    buildings[_id].startdate = block.timestamp;
   }
 
   function addShop(string calldata _lat, string calldata _lng, uint256 _materialType) public {
@@ -70,6 +72,12 @@ contract BuildBloom {
 
   function mintMaterial(uint256 _id) public {
     materials.mintMaterial(msg.sender, _id);
+  }
+
+  function collectPoints(uint256 _id) public {
+    require(msg.sender == buildings[_id].owner, "Not the Owner");
+    buildPoint.mint(msg.sender, 1000000000000000000);
+    buildings[_id].startdate = block.timestamp;
   }
 
   modifier isOwner() {

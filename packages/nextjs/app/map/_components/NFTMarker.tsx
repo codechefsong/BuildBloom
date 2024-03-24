@@ -33,6 +33,15 @@ const NFTMarker: React.FC<MarkerComponentProps> = ({ id, lat, lng, isBuild }) =>
       console.log("📦 Transaction blockHash", txnReceipt.blockHash);
     },
   });
+
+  const { writeAsync: collectPoints } = useScaffoldContractWrite({
+    contractName: "BuildBloom",
+    functionName: "collectPoints",
+    args: [BigInt(id.toString())],
+    onBlockConfirmation: txnReceipt => {
+      console.log("📦 Transaction blockHash", txnReceipt.blockHash);
+    },
+  });
   return (
     <Marker position={[lat, lng]} icon={isBuild ? houseIcon : emptyIcon}>
       <Popup>
@@ -43,6 +52,14 @@ const NFTMarker: React.FC<MarkerComponentProps> = ({ id, lat, lng, isBuild }) =>
             onClick={() => build()}
           >
             Build
+          </button>
+        )}
+        {isBuild && (
+          <button
+            className="py-2 px-4 mb-1 mt-3 mr-3 bg-green-500 rounded baseline hover:bg-green-300 disabled:opacity-50"
+            onClick={() => collectPoints()}
+          >
+            Collect Point
           </button>
         )}
       </Popup>
