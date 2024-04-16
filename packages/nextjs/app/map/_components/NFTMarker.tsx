@@ -47,6 +47,25 @@ const NFTMarker: React.FC<MarkerComponentProps> = ({ id, lat, lng, isBuild }) =>
       <Popup>
         <Image src={isBuild ? "/house.png" : "/empty.png"} width="50" height="50" alt="House" />
         {!isBuild && (
+          <>
+            <div className="mt-3 mb-[-8px]">Cost</div>
+            <div className="flex gap-2">
+              <span className="flex justify-center items-center">
+                <p>1</p>
+                <Image src="/wood.png" width="25" height="25" alt="Wood" />
+              </span>
+              <span className="flex justify-center items-center">
+                <p>1</p>
+                <Image src="/cement.png" width="25" height="25" alt="Cement" />
+              </span>
+              <span className="flex justify-center items-center">
+                <p>1</p>
+                <Image src="/glass.png" width="25" height="25" alt="Glass" />
+              </span>
+            </div>
+          </>
+        )}
+        {!isBuild && (
           <button
             className="py-2 px-4 mb-1 mt-3 mr-3 bg-green-500 rounded baseline hover:bg-green-300 disabled:opacity-50"
             onClick={() => build()}
